@@ -1,3 +1,3 @@
 # API Helper
 
-Api Helper for Ontology API Service
+Api Helper for Ontology Loopkup Service API
