@@ -4,7 +4,7 @@ require "json"
 class ApiHelper
 	
 	def initialize
-		put "Initiating Service URL"
+		puts "Initiating Service URL"
 		url="http://www.ebi.ac.uk/ols/api"
 		@url=url
 	end
@@ -67,11 +67,9 @@ class ApiHelper
 end
 
 
-# p ApiHelper.get_url
 
-helper=ApiHelper.new
-helper.get_ontologies_id 
+# helper=ApiHelper.new
+# helper.get_ontologies_id 
 # helper.get_ontologies_full
-# helper.get_ontology_by_id("zfaa")
+# helper.get_ontology_by_id("zfa")
 
-# ap.get_url
