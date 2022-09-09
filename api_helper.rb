@@ -64,6 +64,6 @@ end
 helper=ApiHelper.new
 # helper.get_ontologies_id 
 # helper.get_ontologies_full
-helper.get_ontology_by_id("aazfs")
+# helper.get_ontology_by_id("aazfs")
 
 # ap.get_url
