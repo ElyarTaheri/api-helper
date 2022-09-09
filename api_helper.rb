@@ -1,6 +1,5 @@
 require "httparty"
-require "json"
- 
+require "json" 
 
 class ApiHelper
 	@@url="http://www.ebi.ac.uk/ols/api"
