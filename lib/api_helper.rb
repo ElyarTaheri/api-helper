@@ -2,15 +2,16 @@ require "httparty"
 require "json" 
 
 class ApiHelper
-	@@url="http://www.ebi.ac.uk/ols/api"
-
-	def self.get_url
-		@@url
+	
+	def initialize
+		put "Initiating Service URL"
+		url="http://www.ebi.ac.uk/ols/api"
+		@url=url
 	end
 
 	def get_ontologies_id()
 		puts "Fetching all ontology ids"
-		url=@@url << "/ontologies?page=0&size=277"
+		url=@url << "/ontologies?page=0&size=277"
 		puts "URL: #{url}"
 		response=HTTParty.get(url)
 		if response.code == 200
@@ -19,27 +20,31 @@ class ApiHelper
 				title = ont["config"]["title"] ? ont["config"]["title"] : "<no title>"
 				puts (index+1).to_s << ". "<< ont["ontologyId"] << " : " << title.to_s 
 			end
-		else
-			puts "invalid ontology url or service down right now"
+                elsif response.code == 503
+                        puts "503 Service Unavailable, Please try again later."
+                else
+                        puts "Some Exception has occured."
 		end
 	end
 
 	def get_ontologies_full()
 		puts "Fetching ontologies with full details"
-		url=@@url << "/ontologies?page=0&size=277"
+		url=@url << "/ontologies?page=0&size=277"
 		puts "URL: #{url}"
 		response=HTTParty.get(@@url)
 		if response.code == 200
 			puts response.body
-		else
-			puts "invalid ontology url or service down right now"
+		elsif response.code == 503
+                        puts "503 Service Unavailable, Please try again later."
+                else
+                        puts "Some Exception has occured."
 		end
 	end
 
 	def get_ontology_by_id(ontology_id)  
 		puts "Fetching single ontology details"
 		puts "Input ID: " << ontology_id.to_s
-		ont_url=@@url << "/ontologies/" << ontology_id.strip.to_s
+		ont_url=@url << "/ontologies/" << ontology_id.strip.to_s
 		puts "URL: #{ont_url}"
 		response=HTTParty.get(ont_url)
 		puts "Response Code: #{response.code}"
@@ -51,8 +56,12 @@ class ApiHelper
 			puts "Number of Terms: #{jresp['numberOfTerms']}"
 			puts "Current Status: #{jresp['status']}"
 			# puts response.body
+		elsif response.code == 503
+			puts "503 Service Unavailable, Please try again later."
+		elsif response.code == 404
+			puts "404 Invalid Id, Ontology not found."
 		else
-			puts "Invalid Id, Ontology not found"
+			puts "Some Exception has occured."
 		end
 	end
 end
@@ -61,8 +70,8 @@ end
 # p ApiHelper.get_url
 
 helper=ApiHelper.new
-# helper.get_ontologies_id 
+helper.get_ontologies_id 
 # helper.get_ontologies_full
-helper.get_ontology_by_id("zfa")
+# helper.get_ontology_by_id("zfaa")
 
 # ap.get_url
