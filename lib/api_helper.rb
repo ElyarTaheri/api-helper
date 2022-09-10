@@ -96,8 +96,9 @@ class ApiHelper
 	    	case response 
 	    	    when Net::HTTPNotFound
 	    	        puts "Invalid Id, Ontology Not Found"
+	    	else
+		    http_error_handling(response)
 	    	end
-		http_error_handling(response)
 	    end
     end
 end
