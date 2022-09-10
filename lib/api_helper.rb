@@ -40,7 +40,7 @@ class ApiHelper
 
     def get_ontologies_id()
 	puts "Fetching all ontology ids"
-	url=@url << "/ontologies?page=0&size=277"
+	url= "#{@url}/ontologies?page=0&size=277"
 	puts "URL: #{url}"
 	uri = URI(url)
 	response=Net::HTTP.get_response(uri)
@@ -61,7 +61,7 @@ class ApiHelper
 
     def get_ontologies_full()
 	puts "Fetching ontologies with full details"
-	url=@url << "/ontologies?page=0&size=277"
+	url=url= "#{@url}/ontologies?page=0&size=277"
 	puts "URL: #{url}"
 	uri = URI(url)
 	response=Net::HTTP.get_response(uri)
@@ -79,7 +79,7 @@ class ApiHelper
     def get_ontology_by_id(ontology_id)  
 	puts "Fetching single ontology details"
 	puts "Input ID: " << ontology_id.to_s
-	ont_url=@url << "/ontologies/" << ontology_id.strip.to_s
+	ont_url=url= "#{@url}/ontologies/#{ontology_id.strip.to_s}"
 	puts "URL: #{ont_url}"		
 	uri = URI(ont_url)
 	response=Net::HTTP.get_response(uri)
