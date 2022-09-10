@@ -1,4 +1,4 @@
-require "httparty"
+require "http"
 require "json" 
 
 class ApiHelper
