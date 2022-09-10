@@ -78,20 +78,19 @@ class ApiHelper
 		puts "URL: #{ont_url}"		
 		uri = URI(ont_url)
     		response=Net::HTTP.get_response(uri)
-
-		case response
-		    when Net::HTTPSuccess then
-			puts "Success!"
-			jresp=JSON.parse(response.body)
-			puts "ID: #{jresp['ontologyId']}"
-			puts "Title: #{jresp['config']['title']}"
-			puts "Descrption: #{jresp['config']['description']}"
-			puts "Number of Terms: #{jresp['numberOfTerms']}"
-			puts "Current Status: #{jresp['status']}"
-		else
-			puts "An Error Has Occured!"
-			http_error_handling(response)
-		end
+	case response
+	    when Net::HTTPSuccess then
+		puts "Success!"
+		jresp=JSON.parse(response.body)
+		puts "ID: #{jresp['ontologyId']}"
+		puts "Title: #{jresp['config']['title']}"
+		puts "Descrption: #{jresp['config']['description']}"
+		puts "Number of Terms: #{jresp['numberOfTerms']}"
+		puts "Current Status: #{jresp['status']}"
+	else
+		puts "An Error Has Occured!"
+		http_error_handling(response)
+	end
  
     end
 end
