@@ -5,7 +5,7 @@ require "json"
 class ApiHelper
     def initialize
 	puts "Initiating Service URL"
-	url="https://www.ebi.ac.uk/ols/apia"
+	url="https://www.ebi.ac.uk/ols/api"
 	@url=url
     end
 
@@ -14,7 +14,7 @@ class ApiHelper
 	  when Net::HTTPFound then
 	    puts "Exception: Empty Ontology ID"
 	  when Net::HTTPNotFound then
-	    puts "Exception: Source Not Found."
+	    puts "Exception: Invalid Address,Source Not Found."
 	  when Net::HTTPMovedPermanently then
 	    puts "Exception: Service Has Been Moved Permanently"
 	  when Net::HTTPForbidden then
@@ -102,11 +102,3 @@ class ApiHelper
 	    end
     end
 end
-
-
-
-helper=ApiHelper.new
-# helper.get_ontologies_id 
-# helper.get_ontologies_full
-helper.get_ontology_by_id("zfa")
-
