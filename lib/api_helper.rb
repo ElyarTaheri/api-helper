@@ -5,7 +5,7 @@ require "json"
 class ApiHelper
     def initialize
 	puts "Initiating Service URL"
-	url="https://www.ebi.ac.uk/ols/api/aa"
+	url="https://www.ebi.ac.uk/ols/apia"
 	@url=url
     end
 
@@ -14,7 +14,7 @@ class ApiHelper
 	  when Net::HTTPFound then
 	    puts "Exception: Empty Ontology ID"
 	  when Net::HTTPNotFound then
-	    puts "Exception: Invalid Id, Ontology Not Found."
+	    puts "Exception: Source Not Found."
 	  when Net::HTTPMovedPermanently then
 	    puts "Exception: Service Has Been Moved Permanently"
 	  when Net::HTTPForbidden then
@@ -93,7 +93,10 @@ class ApiHelper
 		puts "Number of Terms: #{jresp['numberOfTerms']}"
 		puts "Current Status: #{jresp['status']}"
 	    else
-		puts "An Error Has Occured!"
+	    	case response 
+	    	    when Net::HTTPNotFound
+	    	        puts "Invalid Id, Ontology Not Found"
+	    	end
 		http_error_handling(response)
 	    end
     end
@@ -102,7 +105,7 @@ end
 
 
 helper=ApiHelper.new
-helper.get_ontologies_id 
+# helper.get_ontologies_id 
 # helper.get_ontologies_full
-# helper.get_ontology_by_id("zfa")
+helper.get_ontology_by_id("zfa")
 
