@@ -62,12 +62,14 @@ class ApiHelper
 	puts "URL: #{url}"
 	uri = URI(url)
 	response=Net::HTTP.get_response(uri)
-	if response.code == 200
-		puts response.body
-	elsif response.code == 503
-                puts "503 Service Unavailable, Please try again later."
-        else
-                puts "Some Exception has occured."
+
+	case response
+	    when Net::HTTPSuccess then
+		puts "Success!"
+		JSON.parse(response.body)
+	else
+		puts "An Error Has Occured!"
+		http_error_handling(response)
 	end
     end
 
@@ -91,7 +93,6 @@ class ApiHelper
 		puts "An Error Has Occured!"
 		http_error_handling(response)
 	end
- 
     end
 end
 
